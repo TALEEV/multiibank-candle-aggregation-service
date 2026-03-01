@@ -37,6 +37,7 @@ public class MarketDataAggregator {
                         .high(price)
                         .volume(1.0).build();
                 candleRepo.save(currentCandle);
+                System.out.println("timestamp , interval: "+bidAskEvent.getTimestamp() + " , " + interval.name);
             } else {
                 currentCandle.setHigh(max(currentCandle.getHigh(), price));
                 currentCandle.setLow(min(currentCandle.getLow(), price));
@@ -44,6 +45,7 @@ public class MarketDataAggregator {
                 currentCandle.setVolume(currentCandle.getVolume() + 1);
                 candleRepo.save(currentCandle);
             }
+
 
         }
     }

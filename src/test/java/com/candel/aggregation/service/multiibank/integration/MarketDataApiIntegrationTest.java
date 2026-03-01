@@ -1,4 +1,4 @@
-package com.candel.aggregation.service.multiibank;
+package com.candel.aggregation.service.multiibank.integration;
 
 import com.candel.aggregation.service.multiibank.dto.CandleResponse;
 import com.candel.aggregation.service.multiibank.persistence.entities.CandleEntity;

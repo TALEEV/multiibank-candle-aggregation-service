@@ -11,7 +11,5 @@ public interface CandleRepo extends JpaRepository<CandleEntity, Long>, PagingAnd
 
     List<CandleEntity> findBySymbolAndSymbolIntervalAndTimestampBetween(String symbol, String interval, long start, long end);
 
-    CandleEntity findBySymbolAndSymbolIntervalAndTimestamp(String symbol, String interval, long bucket);
-
     CandleEntity findBySymbolAndSymbolIntervalAndBucketId(String symbol, String interval, long bucket);
 }
