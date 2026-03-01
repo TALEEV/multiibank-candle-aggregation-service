@@ -24,11 +24,11 @@
         mvn spring-boot:run
     To Test:
         curl --location 'http://localhost:8080/history?symbol=BTC-USD&interval=1m&from=1772335565&to=1772338565'
-        make sure to pass "from" in milliseconds, you can get the relevent timestamps from the application logs
-        as i am printing the timestamp for each event from the scheduler
+        make sure to pass "from" in seconds, you can get the relevent timestamps from the application logs
+        as i am printing the timestamp for new bucket for each symbol and interval
         
-        you can pass the value of "to" same as "from" or you can add some more milliseconds to it
-        e.g : from  = 1772338975, to = 1772338975 + 10000 = 1772339975
+        you can pass the value of "to" same as "from" or you can add some more seconds to it
+        e.g : from  = 1772338975, to = 1772338975 + 10 = 1772338985
         will return the candles for the last 10 seconds
 
 ## Note:
