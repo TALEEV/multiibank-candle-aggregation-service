@@ -1,4 +1,4 @@
-# Simple-concurrent-memory setup
+# Simple-H2-database setup
 
 ## Assumptions
 
@@ -36,4 +36,4 @@
     with dynamically generate ask and bid prices.
     
     Each event get sent to in memory aggreagator and the aggregated candle gets generated
-    and get saved to the in memory conccurrent hashmap database
+    and get saved to the h2 database
