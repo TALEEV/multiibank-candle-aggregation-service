@@ -1,14 +1,19 @@
-Simple-concurrent-memory setup
+# Simple-concurrent-memory setup
 
-Assumptions:
-    price = (bidding_price - asking_price)/2
-    intervals = 1s, 5s, 1m, 15, 1h as specified in the requirements
-Tradeoffs:
+## Assumptions
+
+- **Price calculation:**  
+  `price = (bidding_price - asking_price) / 2`
+- **Supported intervals:**  
+  `1s`, `5s`, `1m`, `15m`, `1h` as per requirements.
+
+## Tradeoffs:
     if new "interval" is to be added a change in the code is required
-Future improvements:
+
+## Future improvements:
     - Need to add unit tests
     - modify the code to accomodate new intervals in subsequent commits
-Instructions to run:
+## Instructions to run:
     Prerequisites:
         Java 17
         Maven 3.8.1
@@ -26,7 +31,7 @@ Instructions to run:
         e.g : from  = 1772338975, to = 1772338975 + 10000 = 1772339975
         will return the candles for the last 10 seconds
 
-Note:
+## Note:
     I used Spring boot scheduler to generate 5 ticks per second for five different symbols
     with dynamically generate ask and bid prices.
     
