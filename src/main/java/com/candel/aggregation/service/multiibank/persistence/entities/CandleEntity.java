@@ -10,7 +10,9 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(
-        name = "candle"
+        name = "candle",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"symbol", "symbolInterval", "bucketId"}),
+        indexes = @Index(name = "idx_symbol_interval_bucket", columnList = "symbol, symbolInterval, timestamp")
 )
 @ToString
 public class CandleEntity {

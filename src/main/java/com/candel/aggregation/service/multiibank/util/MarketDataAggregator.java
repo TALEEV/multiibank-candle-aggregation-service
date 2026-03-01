@@ -6,6 +6,7 @@ import com.candel.aggregation.service.multiibank.persistence.entities.CandleEnti
 import com.candel.aggregation.service.multiibank.persistence.repository.CandleRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -16,37 +17,34 @@ public class MarketDataAggregator {
 
     private final CandleRepo candleRepo;
 
+    @Transactional
     public void aggregate(BidAskEvent bidAskEvent) {
 
         for (Interval interval : Interval.values()) {
 
-            long bucket = bidAskEvent.getTimestamp() / interval.seconds;
-            double price = (bidAskEvent.getBid() + bidAskEvent.getAsk())/2;
+            aggregateInterval(bidAskEvent, interval);
+        }
+    }
 
-            CandleEntity currentCandle =  candleRepo.findBySymbolAndSymbolIntervalAndBucketId(bidAskEvent.getSymbol(), interval.name, bucket);
+    public void aggregateInterval(BidAskEvent bidAskEvent, Interval interval) {
+        long bucket = bidAskEvent.getTimestamp() / interval.seconds;
+        double price = (bidAskEvent.getBid() + bidAskEvent.getAsk())/2;
 
-            if (currentCandle == null || currentCandle.getTimestamp()/interval.seconds != bucket) {
-                currentCandle = CandleEntity.builder()
-                        .bucketId(bucket)
-                        .timestamp(bidAskEvent.getTimestamp())
-                        .symbol(bidAskEvent.getSymbol())
-                        .symbolInterval(interval.name)
-                        .low(price)
-                        .open(price)
-                        .close(price)
-                        .high(price)
-                        .volume(1.0).build();
-                candleRepo.save(currentCandle);
-                System.out.println("timestamp , interval: "+bidAskEvent.getTimestamp() + " , " + interval.name);
-            } else {
-                currentCandle.setHigh(max(currentCandle.getHigh(), price));
-                currentCandle.setLow(min(currentCandle.getLow(), price));
-                currentCandle.setClose(price);
-                currentCandle.setVolume(currentCandle.getVolume() + 1);
-                candleRepo.save(currentCandle);
-            }
+        int updated = candleRepo.updateCandle(bidAskEvent.getSymbol(), interval.name, bucket, price);
 
-
+        if (updated == 0) {
+            CandleEntity currentCandle = CandleEntity.builder()
+                    .bucketId(bucket)
+                    .timestamp(bidAskEvent.getTimestamp())
+                    .symbol(bidAskEvent.getSymbol())
+                    .symbolInterval(interval.name)
+                    .low(price)
+                    .open(price)
+                    .close(price)
+                    .high(price)
+                    .volume(1.0).build();
+            candleRepo.save(currentCandle);
+            System.out.println("timestamp , interval: "+ bidAskEvent.getTimestamp() + " , " + interval.name);
         }
     }
 }
