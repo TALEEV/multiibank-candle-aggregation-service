@@ -1,15 +1,12 @@
 package com.candel.aggregation.service.multiibank.util;
 
-import com.candel.aggregation.service.multiibank.dao.*;
+import com.candel.aggregation.service.multiibank.dao.BidAskEvent;
 import com.candel.aggregation.service.multiibank.dto.Interval;
 import com.candel.aggregation.service.multiibank.persistence.entities.CandleEntity;
 import com.candel.aggregation.service.multiibank.persistence.repository.CandleRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 @Component
 @AllArgsConstructor
@@ -44,7 +41,7 @@ public class MarketDataAggregator {
                     .high(price)
                     .volume(1.0).build();
             candleRepo.save(currentCandle);
-            System.out.println("timestamp , interval: "+ bidAskEvent.getTimestamp() + " , " + interval.name);
+            System.out.println("timestamp , interval, symbol: "+ bidAskEvent.getTimestamp() + " , " + interval.name+ " , " + bidAskEvent.getSymbol());
         }
     }
 }
