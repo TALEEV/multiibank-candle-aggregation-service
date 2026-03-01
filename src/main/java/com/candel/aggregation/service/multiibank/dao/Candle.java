@@ -10,6 +10,7 @@ import lombok.Setter;
 public class Candle {
      private String symbol;
      private double open;
+     private String symbolInterval;
      private double high;
      private double low;
      private double close;

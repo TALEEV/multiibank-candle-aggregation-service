@@ -26,7 +26,7 @@ public class MarketDataApi {
                                                                         @RequestParam String interval,
                                                                         @RequestParam long from,
                                                                         @RequestParam long to){
-        CandleResponse candleResponse =  aggregationFacade.getMarketDataHistory(symbol, interval, from, to);
+        CandleResponse candleResponse =  aggregationFacade.getMarketDataHistoryFromDatabase(symbol, interval, from, to);
         if(candleResponse == null){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,

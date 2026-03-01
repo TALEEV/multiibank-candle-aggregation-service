@@ -1,4 +1,4 @@
-package com.candel.aggregation.service.multiibank.repository;
+package com.candel.aggregation.service.multiibank.persistence.repository;
 
 import com.candel.aggregation.service.multiibank.dao.SymbolHolder;
 import lombok.Getter;
