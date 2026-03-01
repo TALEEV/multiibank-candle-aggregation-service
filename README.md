@@ -1,6 +1,6 @@
 # Simple-concurrent-memory setup
 
-## Assumptions
+## Assumptions 
 
 - **Price calculation:**  
   `price = (bidding_price - asking_price) / 2`
