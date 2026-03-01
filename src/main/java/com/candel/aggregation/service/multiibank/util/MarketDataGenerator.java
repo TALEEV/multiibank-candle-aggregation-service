@@ -22,6 +22,7 @@ public class MarketDataGenerator {
         List<BidAskEvent> events = new ArrayList<>();
 
         long timestamp = System.currentTimeMillis() / 1000;
+        System.out.println("timestamp: "+timestamp);
         int ticksPerSecond = 5;
 
         Map<String, Double> basePrices = Map.of(
