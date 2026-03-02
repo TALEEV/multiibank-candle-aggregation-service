@@ -30,18 +30,22 @@ public class MarketDataAggregator {
         int updated = candleRepo.updateCandle(bidAskEvent.getSymbol(), interval.name, bucket, price);
 
         if (updated == 0) {
-            CandleEntity currentCandle = CandleEntity.builder()
-                    .bucketId(bucket)
-                    .timestamp(bidAskEvent.getTimestamp())
-                    .symbol(bidAskEvent.getSymbol())
-                    .symbolInterval(interval.name)
-                    .low(price)
-                    .open(price)
-                    .close(price)
-                    .high(price)
-                    .volume(1.0).build();
-            candleRepo.save(currentCandle);
-            System.out.println("timestamp , interval, symbol: "+ bidAskEvent.getTimestamp() + " , " + interval.name+ " , " + bidAskEvent.getSymbol());
+            try {
+                CandleEntity currentCandle = CandleEntity.builder()
+                        .bucketId(bucket)
+                        .timestamp(bidAskEvent.getTimestamp())
+                        .symbol(bidAskEvent.getSymbol())
+                        .symbolInterval(interval.name)
+                        .low(price)
+                        .open(price)
+                        .close(price)
+                        .high(price)
+                        .volume(1.0).build();
+                candleRepo.save(currentCandle);
+                System.out.println("timestamp , interval, symbol: "+ bidAskEvent.getTimestamp() + " , " + interval.name+ " , " + bidAskEvent.getSymbol());
+            } catch (Exception e) {
+                candleRepo.updateCandle(bidAskEvent.getSymbol(), interval.name, bucket, price);
+            }
         }
     }
 }

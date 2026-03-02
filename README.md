@@ -20,6 +20,9 @@
         Spring Boot 4.0.3
     To build:
         mvn clean install
+    To run integeration/unit tests:
+        mvn test
+    mvn spring-boot:run
     To run:
         mvn spring-boot:run
     To Test:
